@@ -4,7 +4,7 @@ import { fetchData } from "../firebase/firebase";
 const collectionName: string = import.meta.env.VITE_FIREBASE_COLLECTION_NAME;
 export default function DataFetcher() {
   const [data, setData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
