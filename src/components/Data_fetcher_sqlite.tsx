@@ -7,7 +7,7 @@ interface TestBook {
   year: number;
 }
 
-const API_URL = "http://localhost:3000";
+const API_URL = import.meta.env.VITE_LOCAL_API;
 
 const BookManager = () => {
   const [books, setBooks] = useState<TestBook[]>([]);
