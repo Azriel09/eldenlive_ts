@@ -21,6 +21,7 @@ const BookManager = () => {
   const fetchBooks = async () => {
     try {
       const response = await fetch(`${API_URL}/books`, {
+        method: "GET",
         headers: {
           "ngrok-skip-browser-warning": "true",
         },
