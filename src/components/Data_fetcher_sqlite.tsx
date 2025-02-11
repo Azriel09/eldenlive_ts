@@ -20,7 +20,11 @@ const BookManager = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch(`${API_URL}/books`);
+      const response = await fetch(`${API_URL}/books`, {
+        headers: {
+          "ngrok-skip-browser-warning": "true", // Ensure the value is a string
+        } as HeadersInit, // Explicitly type the headers object
+      });
       if (!response.ok) throw new Error("Failed to fetch books");
       const data = await response.json();
       console.log(data);
