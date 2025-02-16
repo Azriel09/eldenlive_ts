@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 
-
 const API_URL = import.meta.env.VITE_LOCAL_API;
 
 const BookManager = () => {
-
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,7 +20,9 @@ const BookManager = () => {
       });
       if (!response.ok) throw new Error("Failed to fetch books");
       const data = await response.json();
-      console.log(data);
+      Object.keys(data).map((talent) => {
+        console.log(talent);
+      });
 
       setLoading(false);
     } catch (err) {
