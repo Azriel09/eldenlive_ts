@@ -20,9 +20,10 @@ const BookManager = () => {
       });
       if (!response.ok) throw new Error("Failed to fetch books");
       const data = await response.json();
-      Object.keys(data).map((talent) => {
-        console.log(talent);
-      });
+      console.log(data);
+      // Object.keys(data).map((talent) => {
+      //   console.log(talent);
+      // });
 
       setLoading(false);
     } catch (err) {
