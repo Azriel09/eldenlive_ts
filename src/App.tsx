@@ -1,8 +1,17 @@
 import "./App.css";
-import DataFetcher from "./components/Data_fetcher";
-import BookManager from "./components/Data_fetcher_sqlite";
+import { Routes, Route } from "react-router-dom";
+import SideBarNav from "./components/NavSideBar/NavSideBar";
+import Home from "./pages/Home";
 function App() {
-  return <BookManager />;
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<SideBarNav />}>
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+    </>
+  );
 }
 
 export default App;

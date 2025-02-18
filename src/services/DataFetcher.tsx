@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_LOCAL_API;
 
-const BookManager = () => {
+function DataFetch() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,6 +42,6 @@ const BookManager = () => {
   }
 
   return <h1>Welcome</h1>;
-};
+}
 
 export default BookManager;
