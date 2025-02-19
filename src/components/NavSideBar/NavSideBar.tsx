@@ -1,27 +1,16 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {
   Sidebar,
   Menu,
   MenuItem,
   SubMenu,
-  MenuItemStyles,
-  ElementStyles,
   menuClasses,
 } from "react-pro-sidebar";
 import styles from "./NavSideBar.module.css";
+import { useSidebar } from "../../context/SideBarContext";
 import { TalentIconByName } from "./icons";
-interface MenuItemStyles {
-  root?: ElementStyles;
-  button?: ElementStyles;
-  label?: ElementStyles;
-  prefix?: ElementStyles;
-  suffix?: ElementStyles;
-  icon?: ElementStyles;
-  subMenuContent?: ElementStyles;
-  SubMenuExpandIcon?: ElementStyles;
-}
 
 const icons: string[] = ["ame", "gura", "irys", "calli", "ina", "kronii"];
 const talentNames: string[] = [
@@ -35,12 +24,14 @@ const talentNames: string[] = [
 
 export default function SideBarNav() {
   const [toggled, setToggled] = useState<boolean>(true);
+  const { isOpen, toggleSidebar } = useSidebar();
   return (
     <>
       <Sidebar
         backgroundColor="rgba(28, 29, 33, 1)"
-        toggled={true}
+        toggled={isOpen}
         breakPoint="all"
+        onBackdropClick={toggleSidebar}
         width="350px"
       >
         <Menu
@@ -59,6 +50,7 @@ export default function SideBarNav() {
             },
           }}
         >
+          {/* Disabled MenuItems for spacing lol */}
           <MenuItem disabled></MenuItem>
           <MenuItem disabled></MenuItem>{" "}
           <Typography className={styles.typography}>
@@ -82,6 +74,7 @@ export default function SideBarNav() {
               return (
                 <MenuItem
                   key={talent}
+                  component={<Link to="timestamps" />}
                   onClick={() => setToggled(!toggled)}
                   icon={<TalentIconByName name={talent} />}
                 >
@@ -90,6 +83,8 @@ export default function SideBarNav() {
               );
             })}
           </SubMenu>
+          <MenuItem disabled></MenuItem>
+          <Typography className={styles.typography}>Statistics</Typography>
         </Menu>
       </Sidebar>
       <Outlet />
