@@ -25,3 +25,18 @@
   font-weight: 600;
   padding-left: 30px;
 }
+
+.coverButton {
+  border: 0;
+  background-color: #242424;
+}
+
+.coverButton:hover {
+  cursor: pointer;
+}
+
+.coverIcon {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}

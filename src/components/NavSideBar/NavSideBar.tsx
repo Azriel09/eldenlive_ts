@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {
@@ -13,6 +12,7 @@ import { useSidebar } from "../../context/SideBarContext";
 import { TalentIconByName } from "./icons";
 
 const icons: string[] = ["ame", "gura", "irys", "calli", "ina", "kronii"];
+
 const talentNames: string[] = [
   "Amelia Watson",
   "Gawr Gura",
@@ -23,8 +23,12 @@ const talentNames: string[] = [
 ];
 
 export default function SideBarNav() {
-  const [toggled, setToggled] = useState<boolean>(true);
+
   const { isOpen, toggleSidebar } = useSidebar();
+
+  const handleTalentClick = () => {
+    toggleSidebar();
+  };
   return (
     <>
       <Sidebar
@@ -75,7 +79,7 @@ export default function SideBarNav() {
                 <MenuItem
                   key={talent}
                   component={<Link to="timestamps" />}
-                  onClick={() => setToggled(!toggled)}
+                  onClick={handleTalentClick}
                   icon={<TalentIconByName name={talent} />}
                 >
                   {talentNames[index]}

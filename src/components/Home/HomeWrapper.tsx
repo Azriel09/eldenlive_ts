@@ -1,10 +1,8 @@
 import SideBarToggleButton from "../NavSideBar/SideBarToggleButton";
-
-export default function TimestampsWrapper() {
+export default function HomeWrapper() {
   return (
     <>
       <SideBarToggleButton />
-      <h2>Timestamps</h2>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import Hero from "../components/Hero";
+import HomeWrapper from "../components/Home/HomeWrapper";
 export default function Home() {
-  return <Hero />;
+  return <HomeWrapper />;
 }
