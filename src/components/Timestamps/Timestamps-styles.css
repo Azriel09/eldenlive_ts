@@ -1,0 +1,14 @@
+.talent-header {
+  font-family: Elden Ring;
+  font-weight: 600;
+  font-size: 3rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+}
+
+.ame {
+  text-shadow: 0 0 5px #ffefcc, 0 0 5px #ffff00;
+}

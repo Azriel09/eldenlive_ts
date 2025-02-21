@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_LOCAL_API;
 const LOCAL_DB = import.meta.env.VITE_LOCAL_DB;
-function DataFetch() {
+export default function DataFetch() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,7 +18,7 @@ function DataFetch() {
           "ngrok-skip-browser-warning": "true",
         },
       });
-      if (!response.ok) throw new Error("Failed to fetch books");
+      if (!response.ok) throw new Error("Failed to fetch data");
       const data = await response.json();
       console.log(data);
       // Object.keys(data).map((talent) => {
@@ -43,5 +43,3 @@ function DataFetch() {
 
   return <h1>Welcome</h1>;
 }
-
-export default BookManager;
