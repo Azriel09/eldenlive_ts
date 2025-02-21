@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_LOCAL_API;
-
+const LOCAL_DB = import.meta.env.VITE_LOCAL_DB;
 function DataFetch() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +12,7 @@ function DataFetch() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/vtubers`, {
+      const response = await fetch(`${LOCAL_DB}/api/vtubers`, {
         method: "GET",
         headers: {
           "ngrok-skip-browser-warning": "true",
