@@ -1,6 +1,6 @@
 import { useSidebar } from "../../context/SideBarContext";
 import CoverIcon from "../../assets/cover-icon.png";
-import styles from "./NavSideBar.module.css";
+import styles from "./GlobalComponents.module.css";
 export default function SideBarToggleButton() {
   const { toggleSidebar } = useSidebar();
   return (
@@ -9,3 +9,6 @@ export default function SideBarToggleButton() {
     </button>
   );
 }
+
+
+

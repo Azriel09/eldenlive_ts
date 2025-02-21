@@ -10,7 +10,7 @@ import {
 import styles from "./NavSideBar.module.css";
 import { useSidebar } from "../../context/SideBarContext";
 import { TalentIconByName } from "./icons";
-
+import { useSelectedTalent } from "../../context/TalentContext";
 const icons: string[] = ["ame", "gura", "irys", "calli", "ina", "kronii"];
 
 const talentNames: string[] = [
@@ -23,11 +23,11 @@ const talentNames: string[] = [
 ];
 
 export default function SideBarNav() {
-
   const { isOpen, toggleSidebar } = useSidebar();
-
-  const handleTalentClick = () => {
+  const { setSelectedTalent } = useSelectedTalent();
+  const handleTalentClick = (talent) => {
     toggleSidebar();
+    setSelectedTalent(talent);
   };
   return (
     <>
@@ -36,7 +36,10 @@ export default function SideBarNav() {
         toggled={isOpen}
         breakPoint="all"
         onBackdropClick={toggleSidebar}
-        width="350px"
+        width="275px"
+        style={{
+          borderRightWidth: "0",
+        }}
       >
         <Menu
           menuItemStyles={{
@@ -44,8 +47,8 @@ export default function SideBarNav() {
               return {
                 color: "#b9b9bb",
                 backgroundColor: "rgba(28, 29, 33, 1)",
-                paddingLeft: "75px",
-                fontWeight: "500",
+                paddingLeft: "50px",
+                fontWeight: "400",
                 letterSpacing: "0.5px",
                 "&:hover": {
                   backgroundColor: "#2c2d33 !important",
@@ -79,7 +82,7 @@ export default function SideBarNav() {
                 <MenuItem
                   key={talent}
                   component={<Link to="timestamps" />}
-                  onClick={handleTalentClick}
+                  onClick={() => handleTalentClick(talentNames[index])}
                   icon={<TalentIconByName name={talent} />}
                 >
                   {talentNames[index]}
