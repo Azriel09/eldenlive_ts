@@ -25,7 +25,7 @@ const talentNames: string[] = [
 export default function SideBarNav() {
   const { isOpen, toggleSidebar } = useSidebar();
   const { setSelectedTalent } = useSelectedTalent();
-  const handleTalentClick = (talent) => {
+  const handleTalentClick = (talent: string) => {
     toggleSidebar();
     setSelectedTalent(talent);
   };
