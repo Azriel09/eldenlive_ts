@@ -3,14 +3,32 @@ import TimestampsWrapper from "../components/Timestamps/TimestampsWrapper";
 import SideBarToggleButton from "../components/global/SideBarToggleButton";
 import DataFetch from "../services/DataFetcher";
 import LoadingComponent from "../components/global/Loading";
+import { useSelectedTalent } from "../context/TalentContext";
+import { useNavigate } from "react-router-dom";
+
 export default function Timestamps() {
-  const [talentData, setTalentData] = useState();
-  const data = DataFetch();
-  useEffect(() => {}, []);
+  const { selectedTalent } = useSelectedTalent();
+  const navigate = useNavigate();
+  const [talentData, setTalentData] = useState<any>(null);
+
+  useEffect(() => {
+    if (!selectedTalent) {
+      navigate("/");
+    }
+    const getData = () => {
+      const result = DataFetch();
+      setTalentData(result);
+    };
+    getData();
+  }, [selectedTalent]);
   return (
     <>
       <SideBarToggleButton />
-      {!data ? <LoadingComponent /> : <TimestampsWrapper data={data}/>}
+      {talentData ? (
+        <LoadingComponent />
+      ) : (
+        <TimestampsWrapper data={talentData} />
+      )}
     </>
   );
 }

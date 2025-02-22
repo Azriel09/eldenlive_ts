@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 const API_URL = import.meta.env.VITE_LOCAL_API;
 const LOCAL_DB = import.meta.env.VITE_LOCAL_DB;
 export default function DataFetch() {
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,26 +19,13 @@ export default function DataFetch() {
       });
       if (!response.ok) throw new Error("Failed to fetch data");
       const data = await response.json();
-      console.log(data);
+
       // Object.keys(data).map((talent) => {
       //   console.log(talent);
       // });
-
-      setLoading(false);
+      return data;
     } catch (err) {
       setError(err instanceof Error ? err.message : "An Error occured");
-    } finally {
-      setLoading(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div>
-        <h1>Loading</h1>
-      </div>
-    );
-  }
-
-  return <h1>Welcome</h1>;
 }

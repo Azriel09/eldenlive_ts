@@ -5,28 +5,27 @@ interface TalentNameProps {
 
 export default function TalentName({ selectedTalent }: TalentNameProps) {
   const borderColor = (selectedTalent: string) => {
-
     switch (selectedTalent) {
       case "Amelia Watson":
         return "ame";
       case "Mori Calliope":
-        return "#ff0000";
+        return "calli";
       case "Gawr Gura":
-        return "#008ffb";
+        return "gura";
       case "Ninomae Ina'nis":
-        return "#9400d3";
+        return "ina";
       case "IRyS":
-        return "#ff00ff";
+        return "irys";
       case "Ouro Kronii":
-        return "#0000ff";
+        return "kronii";
       default:
         return undefined;
     }
   };
+  
   return (
     <div className="talent-header">
       <div className={borderColor(selectedTalent)}>{selectedTalent}</div>
-
     </div>
   );
 }

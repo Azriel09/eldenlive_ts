@@ -7,8 +7,29 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 10px 20px;
+  text-align: center;
 }
 
 .ame {
   text-shadow: 0 0 5px #ffefcc, 0 0 5px #ffff00;
+}
+
+.calli {
+  text-shadow: 0 0 5px #bf547b, 0 0 5px #ff0000;
+}
+
+.gura {
+  text-shadow: 0 0 5px #5abeff, 0 0 5px #add8e6;
+}
+
+.irys {
+  text-shadow: 0 0 5px #69035a, 0 0 5px #ff00ff;
+}
+
+.ina {
+  text-shadow: 0 0 5px #54396d, 0 0 5px #9400d3;
+}
+
+.kronii {
+  text-shadow: 0 0 5px #243a9e, 0 0 5px #0000ff;
 }
