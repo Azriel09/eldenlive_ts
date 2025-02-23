@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import TalentName from "./TalentName";
 import { useSelectedTalent } from "../../context/TalentContext";
 import VideoPlayer from "./VideoPlayer";
@@ -6,10 +6,12 @@ import StreamSelection from "./StreamSelection";
 import styles from "./Timestamps.module.css";
 import TimestampsSlider from "./TimestampsSlider";
 import LoadingComponent from "../global/Loading";
+import ReactPlayer from "react-player";
 interface DynamicDataPropsType {
   [key: string]: object;
 }
 export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
+  const playerRef = useRef<ReactPlayer>(null);
   const { selectedTalent } = useSelectedTalent();
   const [selectedStream, setSelectedStream] = useState<string>("");
   const [selectedData, setSelectedData] = useState();
@@ -32,13 +34,15 @@ export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
       <div>
         <TalentName selectedTalent={selectedTalent} />
         <StreamSelection
+     
           data={data}
           selectedStream={selectedStream}
           setSelectedStream={setSelectedStream}
         />
         <div className={styles.player_timestamps_container}>
-          <VideoPlayer selectedStream={selectedStream} />
+          <VideoPlayer selectedStream={selectedStream}   playerRef={playerRef}/>
           <TimestampsSlider
+            playerRef={playerRef}
             data={selectedData}
             selectedStream={selectedStream}
           />

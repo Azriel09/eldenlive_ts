@@ -1,18 +1,27 @@
 import LoadingComponent from "../global/Loading";
-import React from "react";
+
 import ReactPlayer from "react-player";
 interface VideoPlayerProps {
   selectedStream: string;
+  playerRef: React.RefObject<ReactPlayer>;
 }
-const YT_API = import.meta.env.VITE_YOUTUBE_API_KEY;
-export default function VideoPlayer({ selectedStream }: VideoPlayerProps) {
-  const ref = React.createRef();
+
+export default function VideoPlayer({
+  selectedStream,
+  playerRef,
+}: VideoPlayerProps) {
   return (
     <>
       {!selectedStream ? (
         <LoadingComponent />
       ) : (
-        <ReactPlayer ref={ref} playing controls url={selectedStream} width={"95vw"} />
+        <ReactPlayer
+          ref={playerRef}
+          playing
+          controls
+          url={selectedStream}
+          width={"95vw"}
+        />
       )}
     </>
   );

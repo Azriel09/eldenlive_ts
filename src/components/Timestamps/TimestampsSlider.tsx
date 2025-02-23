@@ -1,10 +1,12 @@
 import { Slider } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelectedTalent } from "../../context/TalentContext";
+import ReactPlayer from "react-player";
 import moment from "moment";
 interface TimestampsSliderProps {
   data: Record<string, any>;
   selectedStream: string;
+  playerRef: React.RefObject<ReactPlayer>;
 }
 interface SliderData {
   value: number;
@@ -13,8 +15,8 @@ const YT_API = import.meta.env.VITE_YOUTUBE_API_KEY;
 export default function TimestampsSlider({
   data,
   selectedStream,
+  playerRef,
 }: TimestampsSliderProps) {
-  const ref = React.createRef();
   const { selectedTalent } = useSelectedTalent();
   const [enemies, setEnemies] = useState<string[] | undefined>();
 
@@ -29,7 +31,7 @@ export default function TimestampsSlider({
 
     // Converting each timestamps into total seconds
     temp_t.map((t) => {
-      const tempo: { value: number } = {value: 0};
+      const tempo: { value: number } = { value: 0 };
       let a = t.split(":");
       const totalSeconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
       tempo.value = Number(totalSeconds);
@@ -62,9 +64,8 @@ export default function TimestampsSlider({
     }
   };
   function valueLabelFormat(value: number) {
-    
     let index = sliderData.findIndex((mark) => mark.value === value);
-    console.log(value)
+
     try {
       if (enemies[index].includes("Boss")) {
         const death = enemies[index].replace("Boss", "");
@@ -83,7 +84,8 @@ export default function TimestampsSlider({
   }
   const checkBoss = (e) => {
     const index = sliderData.findIndex((mark) => mark.value === e.target.value);
-    ref.current.seekTo(e.target.value - 2);
+    console.log(e.target.value);
+    playerRef.current?.seekTo(e.target.value - 2);
     if (enemies[index].includes("Boss")) {
       setBoss(true);
       setNPC(false);
@@ -98,7 +100,7 @@ export default function TimestampsSlider({
   return (
     <div>
       {" "}
-      {sliderData &&  (
+      {sliderData && (
         <Slider
           aria-label="Restricted values"
           valueLabelFormat={valueLabelFormat}
@@ -114,7 +116,7 @@ export default function TimestampsSlider({
             {
               color: "rgba(0,0,0,0)",
               // backgroundColor: "#323233",
-              width: "98vw",
+              width: "92vw",
 
               "& .MuiSlider-mark": {
                 backgroundColor: "red",
@@ -149,7 +151,7 @@ export default function TimestampsSlider({
             },
           ]}
         />
-      ) }
+      )}
     </div>
   );
 }
