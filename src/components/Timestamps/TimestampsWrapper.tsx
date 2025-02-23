@@ -10,20 +10,24 @@ interface DynamicDataPropsType {
 export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
   const { selectedTalent } = useSelectedTalent();
   const [selectedStream, setSelectedStream] = useState<string>("");
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    const filteredData = data.find((obj) => selectedTalent in obj);
+    Object.keys(filteredData[selectedTalent]).map((d, i) => {
+      if (i == 0) {
+        setSelectedStream(d);
+      }
+    });
+  }, [data, selectedTalent]);
   return (
     <>
       <div>
         <TalentName selectedTalent={selectedTalent} />
-        {selectedStream ? (
-          <VideoPlayer selectedStream={selectedStream} />
-        ) : (
-          <StreamSelection
-            data={data}
-            selectedStream={selectedStream}
-            setSelectedStream={setSelectedStream}
-          />
-        )}
+        <StreamSelection
+          data={data}
+          selectedStream={selectedStream}
+          setSelectedStream={setSelectedStream}
+        />
+        <VideoPlayer selectedStream={selectedStream} />
       </div>
     </>
   );

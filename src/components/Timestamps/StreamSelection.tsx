@@ -1,5 +1,5 @@
 import { useSelectedTalent } from "../../context/TalentContext";
-
+import styles from "./Timestamps.module.css";
 import React from "react";
 interface StreamSelectionProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,9 +8,6 @@ interface StreamSelectionProps {
   setSelectedStream: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface OnChangeProps {
-  event: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
 export default function StreamSelection({
   data,
   selectedStream,
@@ -18,24 +15,27 @@ export default function StreamSelection({
 }: StreamSelectionProps) {
   const { selectedTalent } = useSelectedTalent();
   const filteredData = data.find((obj) => selectedTalent in obj);
-  const handleSelectStream = (event: OnChangeProps) => {
-    console.log(event.target.value);
-    setSelectedStream(event.target.value as string);
+  const handleSelectStream = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedStream(e.target.value as string);
   };
   return (
     <>
-      <form>
-        <label htmlFor="streams">Select Stream</label>
+      <form className={styles.form}>
+        <label htmlFor="streams" className={styles.label}>
+          Select Stream
+        </label>
         <select
+          className={styles.select}
           name="streams"
           id="streams"
           value={selectedStream}
           onChange={handleSelectStream}
         >
           {Object.keys(filteredData[selectedTalent]).map((url, i) => {
+            
             return (
-              <option key={i} value={url}>
-                {i + 1}
+              <option key={i} value={url} className={styles.option}>
+                Stream #{i + 1}
               </option>
             );
           })}
