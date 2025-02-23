@@ -21,7 +21,7 @@ export default function Timestamps() {
   return (
     <>
       <SideBarToggleButton />
-      {talentData == null ? (
+      {!talentData ? (
         <LoadingComponent />
       ) : (
         <TimestampsWrapper data={talentData} />

@@ -10,7 +10,13 @@ export default function VideoPlayer({ selectedStream }: VideoPlayerProps) {
       {!selectedStream ? (
         <LoadingComponent />
       ) : (
-        <ReactPlayer url={selectedStream} />
+        <ReactPlayer
+        playing
+          controls
+          url={selectedStream}
+          width={"95vw"}
+       
+        />
       )}
     </>
   );
