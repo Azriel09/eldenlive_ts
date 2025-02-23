@@ -10,21 +10,18 @@ export default function Timestamps() {
   const { selectedTalent } = useSelectedTalent();
   const navigate = useNavigate();
   const [talentData, setTalentData] = useState<any>(null);
+  const result = DataFetch();
 
   useEffect(() => {
     if (!selectedTalent) {
       navigate("/");
     }
-    const getData = () => {
-      const result = DataFetch();
-      setTalentData(result);
-    };
-    getData();
+    setTalentData(result);
   }, [selectedTalent]);
   return (
     <>
       <SideBarToggleButton />
-      {talentData ? (
+      {talentData == null ? (
         <LoadingComponent />
       ) : (
         <TimestampsWrapper data={talentData} />

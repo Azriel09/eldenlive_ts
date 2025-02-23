@@ -1,13 +1,17 @@
 import LoadingComponent from "../global/Loading";
-
+import{ useEffect} from "react";
 import TalentName from "./TalentName";
 import { useSelectedTalent } from "../../context/TalentContext";
-export default function TimestampsWrapper({ data }) {
+
+interface DynamicDataPropsType {
+  [key: string]: object;
+}
+export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
   const { selectedTalent } = useSelectedTalent();
-  
+  useEffect(() => {console.log(data)}, [data]);
   return (
     <>
-      {selectedTalent == "" || undefined ? (
+      {data == "" || undefined || null ? (
         <LoadingComponent />
       ) : (
         <div>
