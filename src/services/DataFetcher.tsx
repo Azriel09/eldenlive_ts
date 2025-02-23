@@ -16,5 +16,4 @@ export default function DataFetch() {
       .then((data) => setData(data));
   }, []);
   return data;
-  
 }

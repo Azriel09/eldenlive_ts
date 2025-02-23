@@ -17,7 +17,7 @@ export default function Timestamps() {
       navigate("/");
     }
     setTalentData(result);
-  }, [selectedTalent]);
+  }, [selectedTalent, result]);
   return (
     <>
       <SideBarToggleButton />
