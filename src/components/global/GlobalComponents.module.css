@@ -1,6 +1,6 @@
 .coverButton {
   border: 0;
-  background-color: #242424;
+  background-color: #1f2937;
 }
 
 .coverButton:hover {
@@ -19,8 +19,8 @@
   display: block;
   position: relative;
   animation: spinRing 1500ms linear infinite;
-  margin-left: calc(100vw/2);
-  margin-top: calc(80vh/2);
+  margin-left: calc(100vw / 2);
+  margin-top: calc(80vh / 2);
 }
 .loader::after {
   content: "";

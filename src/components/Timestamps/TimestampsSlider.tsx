@@ -1,6 +1,7 @@
 import { Slider } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useSelectedTalent } from "../../context/TalentContext";
+import styles from "./Timestamps.module.css";
 import ReactPlayer from "react-player";
 import moment from "moment";
 interface TimestampsSliderProps {
@@ -98,8 +99,7 @@ export default function TimestampsSlider({
     }
   };
   return (
-    <div>
-      {" "}
+    <div className={styles.slider_container}>
       {sliderData && (
         <Slider
           aria-label="Restricted values"
@@ -116,7 +116,7 @@ export default function TimestampsSlider({
             {
               color: "rgba(0,0,0,0)",
               // backgroundColor: "#323233",
-              width: "92vw",
+              width: "99%",
 
               "& .MuiSlider-mark": {
                 backgroundColor: "red",

@@ -33,3 +33,60 @@
 .kronii {
   text-shadow: 0 0 5px #243a9e, 0 0 5px #0000ff;
 }
+
+.custom-select {
+  position: relative;
+  width: 200px;
+}
+
+.select-trigger {
+  background-color: #2a2a2a;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  
+}
+
+.select-trigger.open .arrow {
+  transform: rotate(180deg);
+}
+
+.arrow {
+  margin-left: 10px;
+  transition: transform 0.3s;
+}
+
+.options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.options li {
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.options li:hover {
+  background-color: #444;
+}
+
+.open .options {
+  max-height: 200px; /* Adjust based on the number of options */
+}
