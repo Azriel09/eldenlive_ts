@@ -44,15 +44,16 @@ export default function StreamSelection({
         </select>
       </form> */}
       <Field>
-        {" "}
-        <Label className="text-sm/6 font-medium text-white">
+        <Label className="text-lg/12 font-medium text-gray">
           Select a stream
         </Label>
         <Select
           className={clsx(
-            "mt-3 block w-half appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
+            "mt-3 block w-half appearance-none rounded-lg border-none bg-white/5 py-1.5 px-10 text-sm/6 text-white mb-10",
             "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
           )}
+          value={selectedStream}
+          onChange={handleSelectStream}
         >
           {" "}
           {Object.keys(filteredData[selectedTalent]).map((url, i) => {
