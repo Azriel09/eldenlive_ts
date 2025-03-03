@@ -1,11 +1,11 @@
-import { Slider } from "@mui/material";
+import Slider from "@mui/material/Slider";
 import { useState, useEffect } from "react";
 import { useSelectedTalent } from "../../context/TalentContext";
 import styles from "./Timestamps.module.css";
 import ReactPlayer from "react-player";
 import moment from "moment";
 interface TimestampsSliderProps {
-  data: Record<string, any>;
+  data: Record<string, []>;
   selectedStream: string;
   playerRef: React.RefObject<ReactPlayer>;
 }
@@ -19,12 +19,12 @@ export default function TimestampsSlider({
   playerRef,
 }: TimestampsSliderProps) {
   const { selectedTalent } = useSelectedTalent();
-  const [enemies, setEnemies] = useState<string[] | undefined>();
-
+  const [enemies, setEnemies] = useState<string[] | undefined>(undefined);
   const [max, setMax] = useState<number>();
   const [sliderData, setSliderData] = useState<SliderData[]>();
   const [npc, setNPC] = useState<boolean>(false);
   const [boss, setBoss] = useState<boolean>(false);
+
   useEffect(() => {
     const temp_e: string[] = data[selectedTalent][selectedStream]["enemies"];
     const temp_t: string[] = data[selectedTalent][selectedStream]["timestamps"];
@@ -80,9 +80,7 @@ export default function TimestampsSlider({
       }
     } catch (err) {}
   }
-  function valuetext(value) {
-    return;
-  }
+
   const checkBoss = (e) => {
     const index = sliderData.findIndex((mark) => mark.value === e.target.value);
     console.log(e.target.value);
@@ -104,7 +102,6 @@ export default function TimestampsSlider({
         <Slider
           aria-label="Restricted values"
           valueLabelFormat={valueLabelFormat}
-          getAriaValueText={valuetext}
           valueLabelDisplay="on"
           step={null}
           min={0}
@@ -115,11 +112,11 @@ export default function TimestampsSlider({
           sx={[
             {
               color: "rgba(0,0,0,0)",
-              // backgroundColor: "#323233",
+              // backgroundColor: "#15161a",
               width: "99%",
 
               "& .MuiSlider-mark": {
-                backgroundColor: "red",
+                backgroundColor: "#b7b4b6",
                 height: "17px",
                 width: "1px",
                 borderRadius: "1px",

@@ -23,28 +23,8 @@ export default function StreamSelection({
   };
   return (
     <>
-      {/* <form className={styles.form}>
-        <label htmlFor="streams" className={styles.label}>
-          Select Stream
-        </label>
-        <select
-          className={styles.select}
-          name="streams"
-          id="streams"
-          value={selectedStream}
-          onChange={handleSelectStream}
-        >
-          {Object.keys(filteredData[selectedTalent]).map((url, i) => {
-            return (
-              <option key={i} value={url} className={styles.option}>
-                Stream #{i + 1}
-              </option>
-            );
-          })}
-        </select>
-      </form> */}
       <Field>
-        <Label className="text-lg/12 font-medium text-gray">
+        <Label className="text-lg/12 font-medium text-gray-300">
           Select a stream
         </Label>
         <Select

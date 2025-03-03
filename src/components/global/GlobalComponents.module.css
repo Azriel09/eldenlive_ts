@@ -1,6 +1,6 @@
 .coverButton {
   border: 0;
-  background-color: #1f2937;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .coverButton:hover {
