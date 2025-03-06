@@ -26,9 +26,10 @@ export default function TimestampsSlider({
   const [boss, setBoss] = useState<boolean>(false);
 
   useEffect(() => {
+   
     const temp_e: string[] = data[selectedTalent][selectedStream]["enemies"];
     const temp_t: string[] = data[selectedTalent][selectedStream]["timestamps"];
-    const temp_a: [] = [];
+    const temp_a: { value: number }[] = [];
 
     // Converting each timestamps into total seconds
     temp_t.map((t) => {
@@ -46,7 +47,7 @@ export default function TimestampsSlider({
 
     // Getting the video ID
     const url = selectedStream.replace("watch?v=", "embed/");
-    const id = url.split("/").pop();
+    const id: string = url.split("/").pop();
     getVideoDuration(id);
   }, [selectedStream]);
 

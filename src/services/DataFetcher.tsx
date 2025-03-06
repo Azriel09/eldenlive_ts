@@ -5,7 +5,7 @@ const LOCAL_DB = import.meta.env.VITE_LOCAL_DB;
 
 export const DataFetch = () => {
   const queryClient = useQueryClient();
-  
+
   return useQuery({
     queryKey: ["vtubers"],
     queryFn: () => {
@@ -19,7 +19,7 @@ export const DataFetch = () => {
           return resdata;
         })
       );
-     
+
       return data;
     },
     initialData: () => {

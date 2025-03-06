@@ -5,7 +5,7 @@ import ReactPlayer from "react-player";
 interface VideoPlayerProps {
   selectedStream: string;
   playerRef: React.RefObject<ReactPlayer>;
-  data: Record<string, any>;
+  data: Record<string, []>;
 }
 
 export default function VideoPlayer({

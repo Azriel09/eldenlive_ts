@@ -1,21 +1,20 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import TimestampsWrapper from "../components/Timestamps/TimestampsWrapper";
 import SideBarToggleButton from "../components/global/SideBarToggleButton";
 import { DataFetch } from "../services/DataFetcher";
 import LoadingComponent from "../components/global/Loading";
 import { useSelectedTalent } from "../context/TalentContext";
-
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Timestamps() {
   const { selectedTalent, setSelectedTalent } = useSelectedTalent();
-  const [loading, setLoading] = useState<boolean>(true);
   const { isPending, data } = DataFetch();
-  const location: string | undefined = useLocation().pathname;
+  const location: string = useLocation().pathname;
 
   useEffect(() => {
-    setSelectedTalent(location.split("/").pop()?.replace("_", " "));
-  }, []);
+    // Get the url location and set it as the selected talent
+    setSelectedTalent(location.split("/").pop()?.replace("_", " ") || "");
+  }, [setSelectedTalent, location]);
   if (isPending || selectedTalent == "") {
     return <LoadingComponent />;
   }

@@ -4,23 +4,21 @@ import { useSelectedTalent } from "../../context/TalentContext";
 import VideoPlayer from "./VideoPlayer";
 import StreamSelection from "./StreamSelection";
 import styles from "./Timestamps.module.css";
-
-import LoadingComponent from "../global/Loading";
 import ReactPlayer from "react-player";
 import BarGraph from "./BarGraph";
 
 interface DynamicDataPropsType {
-  [key: string]: object;
+  [key: string]: object[];
 }
 
 export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
   const playerRef = useRef<ReactPlayer>(null);
   const { selectedTalent } = useSelectedTalent();
-
   const [selectedStream, setSelectedStream] = useState<string>("");
   const [selectedData, setSelectedData] = useState();
 
   useEffect(() => {
+    console.log(data);
     const filteredData = data.find((obj) => selectedTalent in obj);
 
     Object.keys(filteredData[selectedTalent]).map((d, i) => {
