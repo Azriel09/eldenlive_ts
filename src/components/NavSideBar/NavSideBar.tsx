@@ -78,10 +78,11 @@ export default function SideBarNav() {
             }}
           >
             {icons.map((talent, index) => {
+              const urlId: string = talentNames[index].replace(/ /g, "_");
               return (
                 <MenuItem
                   key={talent}
-                  component={<Link to={`timestamps/${icons[index]}`} />}
+                  component={<Link to={`timestamps/${urlId}`} />}
                   onClick={() => handleTalentClick(talentNames[index])}
                   icon={<TalentIconByName name={talent} />}
                 >
