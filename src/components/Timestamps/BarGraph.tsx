@@ -3,5 +3,5 @@ interface BarGraphProps {
 }
 
 export default function BarGraph({ data }: BarGraphProps) {
-  console.log(data);
+  return;
 }

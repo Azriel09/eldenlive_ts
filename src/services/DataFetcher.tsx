@@ -1,19 +1,30 @@
-import { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const API_URL = import.meta.env.VITE_LOCAL_API;
 const LOCAL_DB = import.meta.env.VITE_LOCAL_DB;
-export default function DataFetch() {
-  const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    fetch(`${LOCAL_DB}/api/vtubers`, {
-      method: "GET",
-      headers: {
-        "ngrok-skip-browser-warning": "true",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
-  return data;
-}
+
+export const DataFetch = () => {
+  const queryClient = useQueryClient();
+  
+  return useQuery({
+    queryKey: ["vtubers"],
+    queryFn: () => {
+      const data = fetch(`${LOCAL_DB}/api/vtubers`, {
+        method: "GET",
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }).then((res) =>
+        res.json().then((resdata) => {
+          return resdata;
+        })
+      );
+     
+      return data;
+    },
+    initialData: () => {
+      return queryClient.getQueryData(["vtuber"]);
+    },
+    staleTime: 120000,
+  });
+};

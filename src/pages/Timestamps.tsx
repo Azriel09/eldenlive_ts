@@ -1,31 +1,25 @@
 import { useState, useEffect } from "react";
 import TimestampsWrapper from "../components/Timestamps/TimestampsWrapper";
 import SideBarToggleButton from "../components/global/SideBarToggleButton";
-import DataFetch from "../services/DataFetcher";
+import { DataFetch } from "../services/DataFetcher";
 import LoadingComponent from "../components/global/Loading";
 import { useSelectedTalent } from "../context/TalentContext";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-
+const queryClient = new QueryClient();
 export default function Timestamps() {
   const { selectedTalent } = useSelectedTalent();
-  const navigate = useNavigate();
-  const [talentData, setTalentData] = useState<any>(null);
-  const result = DataFetch();
+  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (!selectedTalent) {
-      navigate("/");
-    }
-    setTalentData(result);
-  }, [selectedTalent, result]);
+  const { isPending, data } = DataFetch();
+  if (isPending) {
+    return <LoadingComponent />;
+  }
+  console.log(selectedTalent);
   return (
     <>
       <SideBarToggleButton />
-      {!talentData ? (
-        <LoadingComponent />
-      ) : (
-        <TimestampsWrapper data={talentData} />
-      )}
+      {/* <TimestampsWrapper data={data} /> */}
     </>
   );
 }

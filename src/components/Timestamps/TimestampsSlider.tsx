@@ -1,5 +1,5 @@
 import Slider from "@mui/material/Slider";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelectedTalent } from "../../context/TalentContext";
 import styles from "./Timestamps.module.css";
 import ReactPlayer from "react-player";
@@ -33,13 +33,14 @@ export default function TimestampsSlider({
     // Converting each timestamps into total seconds
     temp_t.map((t) => {
       const tempo: { value: number } = { value: 0 };
-      let a = t.split(":");
+      const a = t.split(":");
       const totalSeconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
       tempo.value = Number(totalSeconds);
 
       temp_a.push(tempo);
     });
 
+    console.log(temp_a);
     setEnemies(temp_e);
     setSliderData(temp_a);
 
@@ -81,10 +82,10 @@ export default function TimestampsSlider({
     } catch (err) {}
   }
 
-  const checkBoss = (e) => {
+  const checkBoss = (e: React.ChangeEvent<HTMLInputElement>) => {
     const index = sliderData.findIndex((mark) => mark.value === e.target.value);
-    console.log(e.target.value);
     playerRef.current?.seekTo(e.target.value - 2);
+
     if (enemies[index].includes("Boss")) {
       setBoss(true);
       setNPC(false);

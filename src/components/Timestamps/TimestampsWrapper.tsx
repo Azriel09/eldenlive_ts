@@ -8,14 +8,18 @@ import styles from "./Timestamps.module.css";
 import LoadingComponent from "../global/Loading";
 import ReactPlayer from "react-player";
 import BarGraph from "./BarGraph";
+
 interface DynamicDataPropsType {
   [key: string]: object;
 }
+
 export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
   const playerRef = useRef<ReactPlayer>(null);
   const { selectedTalent } = useSelectedTalent();
+
   const [selectedStream, setSelectedStream] = useState<string>("");
   const [selectedData, setSelectedData] = useState();
+
   useEffect(() => {
     const filteredData = data.find((obj) => selectedTalent in obj);
 
@@ -27,9 +31,7 @@ export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
     });
     setSelectedData(filteredData);
   }, [data, selectedTalent]);
-  if (selectedStream == "" || selectedStream == undefined) {
-    return <LoadingComponent />;
-  }
+
   return (
     <div className={styles.timestamps_wrapper}>
       <div className={styles.left_wrapper}>

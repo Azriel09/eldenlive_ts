@@ -5,7 +5,13 @@ import { SideBarProvider } from "./context/SideBarContext";
 import Home from "./pages/Home";
 import Timestamps from "./pages/Timestamps";
 import { SelectedTalentProvider } from "./context/TalentContext";
+import { DataFetch } from "./services/DataFetcher";
+import LoadingComponent from "./components/global/Loading";
 function App() {
+  const { isPending } = DataFetch();
+  if (isPending) {
+    return <LoadingComponent />;
+  }
   return (
     <>
       {" "}
