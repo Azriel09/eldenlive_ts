@@ -14,7 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<SideBarNav />}>
               <Route index element={<Home />} />
-              <Route path="timestamps" element={<Timestamps />} />
+              <Route path="timestamps/:vtuberId" element={<Timestamps />} />
             </Route>
           </Routes>
         </SelectedTalentProvider>

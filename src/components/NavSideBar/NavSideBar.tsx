@@ -81,7 +81,7 @@ export default function SideBarNav() {
               return (
                 <MenuItem
                   key={talent}
-                  component={<Link to="timestamps" />}
+                  component={<Link to={`timestamps/${icons[index]}`} />}
                   onClick={() => handleTalentClick(talentNames[index])}
                   icon={<TalentIconByName name={talent} />}
                 >
