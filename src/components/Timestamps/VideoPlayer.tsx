@@ -2,10 +2,11 @@ import LoadingComponent from "../global/Loading";
 import TimestampsSlider from "./TimestampsSlider";
 import styles from "./Timestamps.module.css";
 import ReactPlayer from "react-player";
+import { FilteredDataType } from "./TimestampsTypes";
 interface VideoPlayerProps {
   selectedStream: string;
   playerRef: React.RefObject<ReactPlayer>;
-  data: Record<string, []>;
+  data: FilteredDataType | undefined;
 }
 
 export default function VideoPlayer({

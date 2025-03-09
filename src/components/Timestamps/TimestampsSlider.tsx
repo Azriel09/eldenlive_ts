@@ -4,8 +4,9 @@ import { useSelectedTalent } from "../../context/TalentContext";
 import styles from "./Timestamps.module.css";
 import ReactPlayer from "react-player";
 import moment from "moment";
+import { FilteredDataType } from "./TimestampsTypes";
 interface TimestampsSliderProps {
-  data: Record<string, []>;
+  data: FilteredDataType | undefined;
   selectedStream: string;
   playerRef: React.RefObject<ReactPlayer>;
 }
@@ -26,29 +27,31 @@ export default function TimestampsSlider({
   const [boss, setBoss] = useState<boolean>(false);
 
   useEffect(() => {
-   
-    const temp_e: string[] = data[selectedTalent][selectedStream]["enemies"];
-    const temp_t: string[] = data[selectedTalent][selectedStream]["timestamps"];
-    const temp_a: { value: number }[] = [];
+    if (data) {
+      const temp_e: string[] = data[selectedTalent][selectedStream]["enemies"];
+      const temp_t: string[] =
+        data[selectedTalent][selectedStream]["timestamps"];
+      const temp_a: { value: number }[] = [];
 
-    // Converting each timestamps into total seconds
-    temp_t.map((t) => {
-      const tempo: { value: number } = { value: 0 };
-      const a = t.split(":");
-      const totalSeconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
-      tempo.value = Number(totalSeconds);
+      // Converting each timestamps into total seconds
+      temp_t.map((t) => {
+        const tempo: { value: number } = { value: 0 };
+        const a = t.split(":");
+        const totalSeconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+        tempo.value = Number(totalSeconds);
 
-      temp_a.push(tempo);
-    });
+        temp_a.push(tempo);
+      });
 
-    console.log(temp_a);
-    setEnemies(temp_e);
-    setSliderData(temp_a);
+      console.log(temp_a);
+      setEnemies(temp_e);
+      setSliderData(temp_a);
 
-    // Getting the video ID
-    const url = selectedStream.replace("watch?v=", "embed/");
-    const id: string = url.split("/").pop();
-    getVideoDuration(id);
+      // Getting the video ID
+      const url = selectedStream.replace("watch?v=", "embed/");
+      const id: string | undefined = url.split("/").pop();
+      getVideoDuration(id);
+    }
   }, [selectedStream]);
 
   const getVideoDuration = async (id: string) => {
