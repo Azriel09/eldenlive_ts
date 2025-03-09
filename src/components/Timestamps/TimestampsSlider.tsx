@@ -49,7 +49,7 @@ export default function TimestampsSlider({
 
       // Getting the video ID
       const url = selectedStream.replace("watch?v=", "embed/");
-      const id: string | undefined = url.split("/").pop();
+      const id: string = url.split("/").pop() ?? "";
       getVideoDuration(id);
     }
   }, [selectedStream]);
@@ -70,24 +70,29 @@ export default function TimestampsSlider({
     }
   };
   function valueLabelFormat(value: number) {
-    let index = sliderData.findIndex((mark) => mark.value === value);
+    if (sliderData && enemies) {
+      const index = sliderData.findIndex((mark) => mark.value === value);
+      if (enemies[index]) {
+        try {
+          if (enemies[index].includes("Boss")) {
+            const death = enemies[index].replace("Boss", "");
 
-    try {
-      if (enemies[index].includes("Boss")) {
-        const death = enemies[index].replace("Boss", "");
-
-        return death;
-      } else if (enemies[index].includes("NPC")) {
-        const death = enemies[index].replace("NPC", "");
-        return death;
-      } else {
-        return enemies[index];
+            return death;
+          } else if (enemies[index].includes("NPC")) {
+            const death = enemies[index].replace("NPC", "");
+            return death;
+          } else {
+            return enemies[index];
+          }
+        } catch (err) {
+          console.error("An error occurred:", err);
+        }
       }
-    } catch (err) {}
+    }
   }
 
   const checkBoss = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const index = sliderData.findIndex((mark) => mark.value === e.target.value);
+    const index = sliderData.findIndex((mark) => mark.value == e.target.value);
     playerRef.current?.seekTo(e.target.value - 2);
 
     if (enemies[index].includes("Boss")) {
