@@ -13,3 +13,9 @@ export interface VtuberDataType {
 export interface FilteredDataType {
   [vtuberName: string]: VtuberDataType;
 }
+
+export interface StreamSelectionPropTypes {
+  data: object[];
+  selectedStream: string;
+  setSelectedStream: React.Dispatch<React.SetStateAction<string>>;
+}
