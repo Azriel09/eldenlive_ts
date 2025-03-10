@@ -43,7 +43,6 @@ export default function TimestampsSlider({
         temp_a.push(tempo);
       });
 
-      console.log(temp_a);
       setEnemies(temp_e);
       setSliderData(temp_a);
 
@@ -91,19 +90,24 @@ export default function TimestampsSlider({
     }
   }
 
-  const checkBoss = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const index = sliderData.findIndex((mark) => mark.value == e.target.value);
-    playerRef.current?.seekTo(e.target.value - 2);
+  const checkBoss = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    if (sliderData && enemies) {
+      const index = sliderData.findIndex(
+        (mark) => mark.value == Number(target.value)
+      );
+      playerRef.current?.seekTo(Number(target.value) - 2);
 
-    if (enemies[index].includes("Boss")) {
-      setBoss(true);
-      setNPC(false);
-    } else if (enemies[index].includes("NPC")) {
-      setNPC(true);
-      setBoss(false);
-    } else {
-      setBoss(false);
-      setNPC(false);
+      if (enemies[index].includes("Boss")) {
+        setBoss(true);
+        setNPC(false);
+      } else if (enemies[index].includes("NPC")) {
+        setNPC(true);
+        setBoss(false);
+      } else {
+        setBoss(false);
+        setNPC(false);
+      }
     }
   };
   return (
