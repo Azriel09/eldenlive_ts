@@ -11,7 +11,7 @@ export default function StreamSelection({
   setSelectedStream,
 }: StreamSelectionPropTypes) {
   const { selectedTalent } = useSelectedTalent();
-  console.log(data);
+
   const filteredData: FilteredDataType | undefined = data.find(
     (obj): obj is FilteredDataType => selectedTalent in obj
   );

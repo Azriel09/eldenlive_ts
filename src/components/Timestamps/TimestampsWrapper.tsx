@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import { DynamicDataPropsType, FilteredDataType } from "./TimestampsTypes";
 import TalentName from "./TalentName";
 import { useSelectedTalent } from "../../context/TalentContext";
@@ -7,6 +7,7 @@ import StreamSelection from "./StreamSelection";
 import styles from "./Timestamps.module.css";
 import ReactPlayer from "react-player";
 import BarGraph from "./BarGraph";
+
 
 export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
   const playerRef = useRef<ReactPlayer>(null);
@@ -18,7 +19,6 @@ export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
     const filteredData: FilteredDataType | undefined = data.find(
       (obj): obj is FilteredDataType => selectedTalent in obj
     );
-    console.log(filteredData);
     if (filteredData && filteredData[selectedTalent]) {
       Object.keys(filteredData[selectedTalent]).map((d, i) => {
         if (i == 0) {
@@ -47,7 +47,7 @@ export default function TimestampsWrapper({ data }: DynamicDataPropsType) {
         />
       </div>
       <div className={styles.right_wrapper}>
-        {/* <BarGraph data={data} /> */}
+        <BarGraph data={selectedData} selectedStream={selectedStream}/>
       </div>
     </div>
   );

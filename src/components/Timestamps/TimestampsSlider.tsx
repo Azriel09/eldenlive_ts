@@ -2,17 +2,10 @@ import Slider from "@mui/material/Slider";
 import React, { useState, useEffect } from "react";
 import { useSelectedTalent } from "../../context/TalentContext";
 import styles from "./Timestamps.module.css";
-import ReactPlayer from "react-player";
+
 import moment from "moment";
-import { FilteredDataType } from "./TimestampsTypes";
-interface TimestampsSliderProps {
-  data: FilteredDataType | undefined;
-  selectedStream: string;
-  playerRef: React.RefObject<ReactPlayer>;
-}
-interface SliderData {
-  value: number;
-}
+import { TimestampsSliderProps, SliderData } from "./TimestampsTypes";
+
 const YT_API = import.meta.env.VITE_YOUTUBE_API_KEY;
 export default function TimestampsSlider({
   data,

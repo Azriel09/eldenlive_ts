@@ -26,6 +26,7 @@
   height: 100%;
   border: 1px solid #3c4853;
   background-color: #1f2125;
+  border-radius: 10px;
 }
 
 .form {
