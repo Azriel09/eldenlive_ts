@@ -32,8 +32,8 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
       yAxis={[{ scaleType: "band", dataKey: "enemy_name" }]}
       series={[{ dataKey: "value", label: "Deaths" }]}
       layout="horizontal"
-      barLabel={(enemy_name, context) => {
-        console.log(context);
+      barLabel={(v) => {
+        return barData[v.dataIndex]["enemy_name"];
       }}
       grid={{ vertical: true }}
       {...chartSetting}
