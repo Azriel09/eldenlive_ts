@@ -3,7 +3,7 @@ import { BarGraphProps } from "./TimestampsTypes";
 import { useSelectedTalent } from "../../context/TalentContext";
 import ReactApexChart from "react-apexcharts";
 import { useLocation } from "react-router-dom";
-import { colors } from "@mui/material";
+
 export default function BarGraph({ data, selectedStream }: BarGraphProps) {
   const { selectedTalent } = useSelectedTalent();
   const [barData, setBarData] = useState<object[]>([]);
@@ -26,11 +26,11 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
 
   function chartColor() {
     switch (location) {
-      case "Amelia_Watson":
+      case "Amelia Watson":
         return "#ffff00";
       case "Mori Calliope":
         return "#ff0000";
-      case "Gawr_Gura":
+      case "Gawr Gura":
         return "#008ffb";
       case "Ninomae Ina'nis":
         return "#9400d3";
@@ -53,7 +53,6 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
       width: 700,
       foreColor: "#c9cdd4",
       fontFamily: "Elden Ring",
-      stroke: "#c9cdd4",
     },
     plotOptions: {
       bar: {
@@ -69,9 +68,9 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
       enabled: true,
       textAnchor: "start",
       style: {
-        colors: [`#FFF`],
+        colors: [`#fff`],
         textAlign: "center",
-        fontSize: "1.25em",
+        fontSize: "1.3em",
       },
       formatter: function (val, opt) {
         return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
@@ -86,6 +85,15 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
         show: false,
       },
     },
+    colors: ["rgba(255,0,0,0.1)"],
+    stroke: {
+      show: true,
+      curve: "straight",
+      lineCap: "butt",
+      colors: [`${chartColor()}`],
+      width: 1,
+      dashArray: 0,
+    },
   };
   return (
     <>
@@ -96,7 +104,6 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
         type="bar"
         width="175%"
         height="600px"
-        style={{}}
       />
     </>
   );
