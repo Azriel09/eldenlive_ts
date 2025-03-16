@@ -93,6 +93,9 @@ export default function SideBarNav() {
           </SubMenu>
           <MenuItem disabled></MenuItem>
           <Typography className={styles.typography}>Statistics</Typography>
+          <MenuItem component={<Link to="boss" />} onClick={toggleSidebar}>
+            Deaths By Boss
+          </MenuItem>
         </Menu>
       </Sidebar>
       <Outlet />

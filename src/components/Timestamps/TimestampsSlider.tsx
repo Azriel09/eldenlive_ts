@@ -43,6 +43,7 @@ export default function TimestampsSlider({
       const url = selectedStream.replace("watch?v=", "embed/");
       const id: string = url.split("/").pop() ?? "";
       getVideoDuration(id);
+      
     }
   }, [selectedStream]);
 

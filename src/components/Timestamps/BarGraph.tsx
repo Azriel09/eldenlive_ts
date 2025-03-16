@@ -49,14 +49,15 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
   ];
   const barOptions = {
     chart: {
-      height: 450,
-      width: 700,
       foreColor: "#c9cdd4",
       fontFamily: "Elden Ring",
+      toolbar: {
+        show: false,
+      },
     },
     plotOptions: {
       bar: {
-        borderRadius: 4,
+        borderRadius: 2,
         horizontal: true,
         height: "100%",
         dataLabels: {
@@ -65,12 +66,12 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
       },
     },
     dataLabels: {
-      enabled: true,
       textAnchor: "start",
+      enabled: true,
       style: {
         colors: [`#fff`],
         textAlign: "center",
-        fontSize: "1.3em",
+        fontSize: "1.4em",
       },
       formatter: function (val, opt) {
         return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
@@ -85,14 +86,13 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
         show: false,
       },
     },
-    colors: ["rgba(255,0,0,0.1)"],
+    colors: ["rgba(255,255,255,0.3)"],
     stroke: {
       show: true,
       curve: "straight",
       lineCap: "butt",
       colors: [`${chartColor()}`],
       width: 1,
-      dashArray: 0,
     },
   };
   return (
