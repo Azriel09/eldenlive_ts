@@ -6,12 +6,14 @@ import Home from "./pages/Home";
 import Boss from "./pages/Boss";
 import Timestamps from "./pages/Timestamps";
 import { SelectedTalentProvider } from "./context/TalentContext";
-import { DataFetch } from "./services/DataFetcher";
+import { FetchBossData, FetchDeathsData } from "./services/DataFetcher";
 import LoadingComponent from "./components/global/Loading";
 function App() {
-  const { isPending } = DataFetch();
-  if (isPending) {
-    return <LoadingComponent />;
+  const { isPending: isDeathsPending } = FetchDeathsData();
+  const { isPending: isBossPending } = FetchBossData();
+
+  if (isDeathsPending || isBossPending) {
+    return <LoadingComponent/>
   }
   return (
     <>

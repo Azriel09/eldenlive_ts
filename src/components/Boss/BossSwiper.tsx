@@ -25,9 +25,7 @@ import {
   Beast,
 } from "./BossImages";
 import styles from "./BossSwiper.module.css";
-
-
-
+import { BossSwiperTypes } from "./BossTypes";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import "swiper/css";
@@ -40,8 +38,6 @@ import "swiper/css/navigation";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import "swiper/css/thumbs";
-
-
 
 // Duplicated Data multiple times because loop and slidespreview doesnt work well together lol
 const bossList: string[] = [
@@ -123,10 +119,6 @@ const bossList: string[] = [
   "Elden Beast",
 ];
 
-interface BossSwiperTypes {
-  setSelectedBoss: React.Dispatch<React.SetStateAction<string>>;
-}
-
 export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
   const BossImage = (bossIndex: number) => {
     let arrIndex = bossIndex;
@@ -195,6 +187,8 @@ export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
         spaceBetween={10}
         navigation={true}
         loop={true}
+        // it starts around the middle so slides preview will show up no matter what direction the user will slide into
+        initialSlide={39}
         modules={[Navigation, FreeMode, Thumbs]}
         className={styles.mySwiper2}
         centeredSlides={true}
