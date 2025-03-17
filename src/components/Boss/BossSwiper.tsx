@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperClass } from "swiper/types";
 import { Typography } from "@mui/material";
 import { Navigation, FreeMode, Thumbs } from "swiper/modules";
 import {
@@ -24,10 +25,23 @@ import {
   Beast,
 } from "./BossImages";
 import styles from "./BossSwiper.module.css";
+
+
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import "swiper/css";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import "swiper/css/free-mode";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import "swiper/css/navigation";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import "swiper/css/thumbs";
+
+
 
 // Duplicated Data multiple times because loop and slidespreview doesnt work well together lol
 const bossList: string[] = [
@@ -113,10 +127,6 @@ interface BossSwiperTypes {
   setSelectedBoss: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface SwiperStyle {
-  "--swiper-navigation-color": string;
-  width: string;
-}
 export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
   const BossImage = (bossIndex: number) => {
     let arrIndex = bossIndex;
@@ -164,23 +174,21 @@ export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
         return Beast();
     }
   };
-  const handleChange = (e) => {
-    let slide = e.realIndex;
-
-    if (slide >= 19) {
-      slide = slide % 19;
-    }
-    console.log(slide);
+  const handleChange = (e: SwiperClass) => {
+    let slide = e.realIndex ?? 0;
+    slide = slide >= 19 ? slide % 19 : slide;
     setSelectedBoss(bossList[slide]);
   };
   return (
     <>
       {" "}
       <Swiper
-        style={{
-          "--swiper-navigation-color": "white",
-          width: "90%",
-        }}
+        style={
+          {
+            "--swiper-navigation-color": "white",
+            width: "90%",
+          } as React.CSSProperties & Record<string, string>
+        }
         onSlideChange={(e) => handleChange(e)}
         slidesPerView={"auto"}
         slideToClickedSlide={true}
