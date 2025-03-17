@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Typography } from "@mui/material";
-import { Navigation } from "swiper/modules";
+import { Navigation, FreeMode, Thumbs } from "swiper/modules";
 import {
   Tree,
   Margit,
@@ -23,11 +23,71 @@ import {
   Radagon,
   Beast,
 } from "./BossImages";
+import styles from "./BossSwiper.module.css";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+
+// Duplicated Data multiple times because loop and slidespreview doesnt work well together lol
 const bossList: string[] = [
+  "Tree Sentinel",
+  "Margit",
+  "Godrick",
+  "Wolf of Radagon",
+  "Rennala",
+  "Radahn",
+  "Astel",
+  "Rykard",
+  "Godfrey Golden Shade",
+  "Morgott",
+  "Fire Giant",
+  "Malenia",
+  "Godskin Duo",
+  "Mohg",
+  "Maliketh",
+  "Gideon",
+  "Godfrey",
+  "Radagon",
+  "Elden Beast",
+  "Tree Sentinel",
+  "Margit",
+  "Godrick",
+  "Wolf of Radagon",
+  "Rennala",
+  "Radahn",
+  "Astel",
+  "Rykard",
+  "Godfrey Golden Shade",
+  "Morgott",
+  "Fire Giant",
+  "Malenia",
+  "Godskin Duo",
+  "Mohg",
+  "Maliketh",
+  "Gideon",
+  "Godfrey",
+  "Radagon",
+  "Elden Beast",
+  "Tree Sentinel",
+  "Margit",
+  "Godrick",
+  "Wolf of Radagon",
+  "Rennala",
+  "Radahn",
+  "Astel",
+  "Rykard",
+  "Godfrey Golden Shade",
+  "Morgott",
+  "Fire Giant",
+  "Malenia",
+  "Godskin Duo",
+  "Mohg",
+  "Maliketh",
+  "Gideon",
+  "Godfrey",
+  "Radagon",
+  "Elden Beast",
   "Tree Sentinel",
   "Margit",
   "Godrick",
@@ -52,9 +112,18 @@ const bossList: string[] = [
 interface BossSwiperTypes {
   setSelectedBoss: React.Dispatch<React.SetStateAction<string>>;
 }
+
+interface SwiperStyle {
+  "--swiper-navigation-color": string;
+  width: string;
+}
 export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
   const BossImage = (bossIndex: number) => {
-    switch (bossIndex) {
+    let arrIndex = bossIndex;
+    if (bossIndex >= 19) {
+      arrIndex = bossIndex % 19;
+    }
+    switch (arrIndex) {
       case 0:
         return Tree();
       case 1:
@@ -96,7 +165,12 @@ export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
     }
   };
   const handleChange = (e) => {
-    const slide = e.realIndex;
+    let slide = e.realIndex;
+
+    if (slide >= 19) {
+      slide = slide % 19;
+    }
+    console.log(slide);
     setSelectedBoss(bossList[slide]);
   };
   return (
@@ -113,8 +187,8 @@ export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
         spaceBetween={10}
         navigation={true}
         loop={true}
-        modules={[Navigation]}
-        className="mySwiper2"
+        modules={[Navigation, FreeMode, Thumbs]}
+        className={styles.mySwiper2}
         centeredSlides={true}
       >
         {bossList.map((boss, index) => {
@@ -125,13 +199,10 @@ export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
                 width: "225px",
                 height: "375px",
                 position: "relative",
-                "&Active": {
-                  opacity: 1,
-                },
                 cursor: "pointer",
               }}
               key={index}
-              className="swiper-slide"
+              className={styles.swiper_slide}
             >
               {({ isActive }) => (
                 <>
