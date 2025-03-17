@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { } from "react";
 import BossWrapper from "../components/Boss/BossWrapper";
 import LoadingComponent from "../components/global/Loading";
 import { FetchBossData } from "../services/DataFetcher";
