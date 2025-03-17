@@ -49,11 +49,12 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
     }
   };
   const barSeries = holoMem.map((name, index) => {
-    console.log(name);
-    return {
+    const d = {
       name: name,
       data: barDataSortByGen(name, index),
     };
+    console.log(d);
+    return d;
   });
   const barOptions = {
     chart: {
