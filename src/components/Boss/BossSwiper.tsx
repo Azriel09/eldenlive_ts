@@ -119,6 +119,27 @@ const bossList: string[] = [
   "Elden Beast",
 ];
 
+const bossFullName: string[] = [
+  "Tree Sentinel",
+  "Margit - The Fell Omen",
+  "Godrick - The Grafted",
+  "Red Wolf of Radagon",
+  "Rennala - Queen of the Full Moon",
+  "Starscourge Radahn",
+  "Astel - Naturalborn of the Void",
+  "Rykard - Lord of Blasphemy",
+  "Godfrey - First Elden Lord (Golden Shade)",
+  "Morgott - The Omen King",
+  "Fire Giant",
+  "Malenia - Blade of Miquella",
+  "Godskin Duo",
+  "Mohg - Lord of Blood",
+  "Maliketh - The Black Blade",
+  "Sir Gideon Ofnir - The All Knowing",
+  "Godfrey - First Elden Lord",
+  "Radagon of the Golden Order",
+  "Elden Beast",
+];
 export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
   const BossImage = (bossIndex: number) => {
     let arrIndex = bossIndex;
@@ -169,7 +190,7 @@ export default function BossSwiper({ setSelectedBoss }: BossSwiperTypes) {
   const handleChange = (e: SwiperClass) => {
     let slide = e.realIndex ?? 0;
     slide = slide >= 19 ? slide % 19 : slide;
-    setSelectedBoss(bossList[slide]);
+    setSelectedBoss(bossFullName[slide]);
   };
   return (
     <>
