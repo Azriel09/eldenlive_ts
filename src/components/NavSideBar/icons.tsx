@@ -4,6 +4,7 @@ import CalliPic from "../../assets/talent-icons/calli.png";
 import InaPic from "../../assets/talent-icons/ina.png";
 import IrysPic from "../../assets/talent-icons/irys.png";
 import KroniiPic from "../../assets/talent-icons/kronii.png";
+import BijouPic from "../../assets/talent-icons/biboo.jpg";
 // import OkayuPic from "../images/talent-icons/okayu.png";
 // import FlarePic from "../images/talent-icons/flare.png";
 // import LuiPic from "../images/talent-icons/lui.png";
@@ -25,7 +26,14 @@ interface TalentIconProps {
 interface TalentIconByNameProps {
   name: string;
 }
-type TalentName = "gura" | "ame" | "calli" | "ina" | "irys" | "kronii";
+type TalentName =
+  | "gura"
+  | "ame"
+  | "calli"
+  | "ina"
+  | "irys"
+  | "kronii"
+  | "bijou";
 
 const TALENT_ICONS: Record<TalentName, string> = {
   gura: GuraPic,
@@ -34,6 +42,7 @@ const TALENT_ICONS: Record<TalentName, string> = {
   ina: InaPic,
   irys: IrysPic,
   kronii: KroniiPic,
+  bijou: BijouPic,
 };
 
 const TalentIcon = ({ src, alt }: TalentIconProps) => (

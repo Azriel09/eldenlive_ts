@@ -18,11 +18,13 @@ export default function TalentName({ selectedTalent }: TalentNameProps) {
         return "irys";
       case "Ouro Kronii":
         return "kronii";
+      case "Koseki Bijou":
+        return "bijou";
       default:
         return undefined;
     }
   };
-  
+
   return (
     <div className="talent-header">
       <div className={borderColor(selectedTalent)}>{selectedTalent}</div>

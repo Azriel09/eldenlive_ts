@@ -11,8 +11,16 @@ import styles from "./NavSideBar.module.css";
 import { useSidebar } from "../../context/SideBarContext";
 import { TalentIconByName } from "./icons";
 import { useSelectedTalent } from "../../context/TalentContext";
-const icons: string[] = ["ame", "gura", "irys", "calli", "ina", "kronii"];
 
+const icons: string[] = [
+  "ame",
+  "gura",
+  "irys",
+  "calli",
+  "ina",
+  "kronii",
+  "bijou",
+];
 const talentNames: string[] = [
   "Amelia Watson",
   "Gawr Gura",
@@ -20,6 +28,7 @@ const talentNames: string[] = [
   "Mori Calliope",
   "Ninomae Ina'nis",
   "Ouro Kronii",
+  "Koseki Bijou",
 ];
 
 export default function SideBarNav() {

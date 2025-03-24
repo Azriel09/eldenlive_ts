@@ -38,6 +38,8 @@ export default function BarGraph({ data, selectedStream }: BarGraphProps) {
         return "#ff00ff";
       case "Ouro Kronii":
         return "#0000ff";
+      case "Koseki Bijou":
+        return "#6a57ba";
       default:
         return "ONE";
     }
