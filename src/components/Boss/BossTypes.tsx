@@ -9,3 +9,7 @@ export interface DynamicDataPropsType {
 export interface SelectedDataTypes {
   [vtuberName: string]: number;
 }
+
+export interface GenerationTypes {
+  [genName: string]: string[];
+}

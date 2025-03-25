@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SelectedDataTypes } from "./BossTypes";
+import { SelectedDataTypes, GenerationTypes } from "./BossTypes";
 
 import "./Boss.styles.css";
 import ReactApexChart from "react-apexcharts";
@@ -7,6 +7,7 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
   const [holoMem, setHoloMems] = useState<string[]>([]);
   const [deathCounts, setDeathCounts] = useState<string[]>([]);
   const [genCategories, setGenCategories] = useState<string[]>([]);
+
   useEffect(() => {
     if (data) {
       const tempArr: string[] = [];
@@ -21,14 +22,14 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
       tempArr.map((talent) => {
         switch (talent) {
           case "Ouro Kronii":
-          case "IryS":
+          case "IRyS":
             if (!tempGen.includes("Promise")) {
               tempGen.push("Promise");
             }
 
             return;
           case "Koseki Bijou":
-            if (!tempGen.push("Advent")) {
+            if (!tempGen.includes("Advent")) {
               tempGen.push("Advent");
             }
             return;
@@ -36,31 +37,60 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
           case "Amelia Watson":
           case "Ninomae Ina'nis":
           case "Mori Calliope":
-            if (!tempGen.push("Myth")) {
+            if (!tempGen.includes("Myth")) {
               tempGen.push("Myth");
             }
             return;
         }
       });
-      console.log(tempGen);
+      const generations: GenerationTypes[] = [
+        {
+          Myth: [
+            "Amelia Watson",
+            "Gawr Gura",
+            "Ninomae Ina'nis",
+            "Mori Calliope",
+          ],
+        },
+        { Promise: ["Ouro Kronii", "IRyS"] },
+        { Advent: ["Koseki Bijou"] },
+      ];
+      const filteredGenerations = generations
+        .filter((genObj) => {
+          const genName = Object.keys(genObj)[0];
+          const talents = genObj[genName];
+          return talents.some((talent) => tempArr.includes(talent));
+        })
+        .map((genObj) => Object.keys(genObj)[0]);
+      console.log(filteredGenerations);
+
       setGenCategories(tempGen);
       setHoloMems(tempArr);
       setDeathCounts(tempD);
     }
   }, [data]);
 
+  // The Stacked bar chart works by having data for each category (see https://apexcharts.com/wp-content/uploads/2018/05/stacked-100-bar-chart.svg), but in this case, there's no same talent for each gen, so this is the workaround
   const barDataSortByGen = (name, index) => {
     if (holoMem.includes("IRyS") || holoMem.includes("Ouro Kronii")) {
       switch (name) {
         case "Gawr Gura":
         case "Amelia Watson":
-          return [deathCounts[index], 0];
         case "Ninomae Ina'nis":
         case "Mori Calliope":
-          return [deathCounts[index], 0];
+          if (holoMem.includes("Koseki Bijou")) {
+            return [0, deathCounts[index], 0];
+          } else {
+            return [deathCounts[index], 0];
+          }
+
         case "IRyS":
         case "Ouro Kronii":
-          return [0, deathCounts[index]];
+          if (holoMem.includes("Koseki Bijou")) {
+            return [0, deathCounts[index], 0];
+          } else {
+            return [0, deathCounts[index]];
+          }
       }
     } else {
       switch (name) {
@@ -68,7 +98,11 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
         case "Amelia Watson":
         case "Ninomae Ina'nis":
         case "Mori Calliope":
-          return [deathCounts[index]];
+          if (holoMem.includes("Koseki Bijou")) {
+            return [deathCounts[index], 0];
+          } else {
+            return [deathCounts[index]];
+          }
       }
     }
   };
@@ -77,7 +111,7 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
       name: name,
       data: barDataSortByGen(name, index),
     };
-    console.log(d);
+
     return d;
   });
   const barOptions = {
