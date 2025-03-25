@@ -14,7 +14,6 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
     { Advent: ["Koseki Bijou"] },
   ];
 
-
   useEffect(() => {
     if (data) {
       const tempArr: string[] = [];
@@ -41,6 +40,13 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
 
   // The Stacked bar chart works by having data for each category (see https://apexcharts.com/wp-content/uploads/2018/05/stacked-100-bar-chart.svg), but in this case, there's no same talent for each gen, so this is the workaround
   const barDataSortByGen = (name: string, index: number) => {
+    // Generates an array based on gen categories
+    // length of array is based on how much gens there is
+    // gets the index of the talent that falls under
+    // use that index to replace the same index in the generated array
+    // ex: talent is irys and there are 3 gens [myth, promise, advent]
+    // irys falls under promise gen so the index will be 1
+    // array will be [0, deathCounts[index], 0]
     const genLength = genCategories.length;
     let talentGen: string = "";
     for (const genObj of generations) {
@@ -56,7 +62,7 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
     );
     return arr;
   };
-  
+
   const barSeries = holoMem.map((name, index) => {
     const d = {
       name: name,
