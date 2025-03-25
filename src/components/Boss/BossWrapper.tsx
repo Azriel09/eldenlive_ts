@@ -25,7 +25,7 @@ export default function BossWrapper({ data }: DynamicDataPropsType) {
       },
       {} as SelectedDataTypes
     );
-    console.log(filteredData);
+
     setSelectedData(filteredData);
   }, [selectedBoss]);
   return (

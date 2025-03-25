@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { SelectedDataTypes, GenerationTypes } from "./BossTypes";
-
 import "./Boss.styles.css";
 import ReactApexChart from "react-apexcharts";
 export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
   const [holoMem, setHoloMems] = useState<string[]>([]);
   const [deathCounts, setDeathCounts] = useState<string[]>([]);
   const [genCategories, setGenCategories] = useState<string[]>([]);
+  const generations: GenerationTypes[] = [
+    {
+      Myth: ["Amelia Watson", "Gawr Gura", "Ninomae Ina'nis", "Mori Calliope"],
+    },
+    { Promise: ["Ouro Kronii", "IRyS"] },
+    { Advent: ["Koseki Bijou"] },
+  ];
+
 
   useEffect(() => {
     if (data) {
@@ -17,44 +24,7 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
         tempD.push(`${data[talent]}`);
       });
 
-      // Setting Gen categories
-      const tempGen: string[] = [];
-      tempArr.map((talent) => {
-        switch (talent) {
-          case "Ouro Kronii":
-          case "IRyS":
-            if (!tempGen.includes("Promise")) {
-              tempGen.push("Promise");
-            }
-
-            return;
-          case "Koseki Bijou":
-            if (!tempGen.includes("Advent")) {
-              tempGen.push("Advent");
-            }
-            return;
-          case "Gawr Gura":
-          case "Amelia Watson":
-          case "Ninomae Ina'nis":
-          case "Mori Calliope":
-            if (!tempGen.includes("Myth")) {
-              tempGen.push("Myth");
-            }
-            return;
-        }
-      });
-      const generations: GenerationTypes[] = [
-        {
-          Myth: [
-            "Amelia Watson",
-            "Gawr Gura",
-            "Ninomae Ina'nis",
-            "Mori Calliope",
-          ],
-        },
-        { Promise: ["Ouro Kronii", "IRyS"] },
-        { Advent: ["Koseki Bijou"] },
-      ];
+      // Filter Gens
       const filteredGenerations = generations
         .filter((genObj) => {
           const genName = Object.keys(genObj)[0];
@@ -62,50 +32,31 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
           return talents.some((talent) => tempArr.includes(talent));
         })
         .map((genObj) => Object.keys(genObj)[0]);
-      console.log(filteredGenerations);
 
-      setGenCategories(tempGen);
+      setGenCategories(filteredGenerations);
       setHoloMems(tempArr);
       setDeathCounts(tempD);
     }
   }, [data]);
 
   // The Stacked bar chart works by having data for each category (see https://apexcharts.com/wp-content/uploads/2018/05/stacked-100-bar-chart.svg), but in this case, there's no same talent for each gen, so this is the workaround
-  const barDataSortByGen = (name, index) => {
-    if (holoMem.includes("IRyS") || holoMem.includes("Ouro Kronii")) {
-      switch (name) {
-        case "Gawr Gura":
-        case "Amelia Watson":
-        case "Ninomae Ina'nis":
-        case "Mori Calliope":
-          if (holoMem.includes("Koseki Bijou")) {
-            return [0, deathCounts[index], 0];
-          } else {
-            return [deathCounts[index], 0];
-          }
-
-        case "IRyS":
-        case "Ouro Kronii":
-          if (holoMem.includes("Koseki Bijou")) {
-            return [0, deathCounts[index], 0];
-          } else {
-            return [0, deathCounts[index]];
-          }
-      }
-    } else {
-      switch (name) {
-        case "Gawr Gura":
-        case "Amelia Watson":
-        case "Ninomae Ina'nis":
-        case "Mori Calliope":
-          if (holoMem.includes("Koseki Bijou")) {
-            return [deathCounts[index], 0];
-          } else {
-            return [deathCounts[index]];
-          }
+  const barDataSortByGen = (name: string, index: number) => {
+    const genLength = genCategories.length;
+    let talentGen: string = "";
+    for (const genObj of generations) {
+      const genName = Object.keys(genObj)[0];
+      const talents = genObj[genName];
+      if (talents.includes(name)) {
+        talentGen = genName;
       }
     }
+    const genIndex = genCategories.indexOf(talentGen);
+    const arr = Array.from({ length: genLength }, (_, i) =>
+      i === genIndex ? deathCounts[index] : 0
+    );
+    return arr;
   };
+  
   const barSeries = holoMem.map((name, index) => {
     const d = {
       name: name,
