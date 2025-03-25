@@ -15,11 +15,35 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
         tempArr.push(talent);
         tempD.push(`${data[talent]}`);
       });
-      if (tempArr.includes("Ouro Kronii") || tempArr.includes("IRyS")) {
-        setGenCategories(["holoMyth", "Promise"]);
-      } else {
-        setGenCategories(["holoMyth"]);
-      }
+
+      // Setting Gen categories
+      const tempGen: string[] = [];
+      tempArr.map((talent) => {
+        switch (talent) {
+          case "Ouro Kronii":
+          case "IryS":
+            if (!tempGen.includes("Promise")) {
+              tempGen.push("Promise");
+            }
+
+            return;
+          case "Koseki Bijou":
+            if (!tempGen.push("Advent")) {
+              tempGen.push("Advent");
+            }
+            return;
+          case "Gawr Gura":
+          case "Amelia Watson":
+          case "Ninomae Ina'nis":
+          case "Mori Calliope":
+            if (!tempGen.push("Myth")) {
+              tempGen.push("Myth");
+            }
+            return;
+        }
+      });
+      console.log(tempGen);
+      setGenCategories(tempGen);
       setHoloMems(tempArr);
       setDeathCounts(tempD);
     }
