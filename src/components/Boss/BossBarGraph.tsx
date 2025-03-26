@@ -24,6 +24,9 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
       });
 
       // Filter Gens
+      // there are multiple gens, but not everyone died to the selected boss
+      // ex: if bijou didnt die from fire giant, advent gen will be filtered out
+
       const filteredGenerations = generations
         .filter((genObj) => {
           const genName = Object.keys(genObj)[0];
@@ -35,6 +38,7 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
       setGenCategories(filteredGenerations);
       setHoloMems(tempArr);
       setDeathCounts(tempD);
+      console.log(100 / genCategories.length);
     }
   }, [data]);
 
@@ -154,7 +158,7 @@ export default function BossBarGraph({ data }: { data?: SelectedDataTypes }) {
           series={barSeries}
           type="bar"
           width="90%"
-          height="400px"
+          height={`${(genCategories.length / 100) * 2000}%`}
         />
       ) : null}
     </>
